@@ -34,4 +34,18 @@ link "$DOTFILES/git/ignore"     "$HOME/.config/git/ignore"
 echo "Linking tmux config..."
 link "$DOTFILES/tmux/.tmux.conf" "$HOME/.tmux.conf"
 
+echo "Linking Claude configs..."
+mkdir -p "$HOME/.claude/commands" "$HOME/.claude/skills"
+link "$DOTFILES/claude/CLAUDE.md"              "$HOME/.claude/CLAUDE.md"
+link "$DOTFILES/claude/linear-projects.md"     "$HOME/.claude/linear-projects.md"
+link "$DOTFILES/claude/settings.json"          "$HOME/.claude/settings.json"
+link "$DOTFILES/claude/statusline-command.sh"  "$HOME/.claude/statusline-command.sh"
+for cmd in "$DOTFILES"/claude/commands/*.md; do
+  link "$cmd" "$HOME/.claude/commands/$(basename "$cmd")"
+done
+for skill in "$DOTFILES"/claude/skills/*/; do
+  skill_name="$(basename "$skill")"
+  link "$skill" "$HOME/.claude/skills/$skill_name"
+done
+
 echo "Done."
